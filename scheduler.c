@@ -1,7 +1,7 @@
+#include "dummy_main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <signal.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -24,7 +24,7 @@ typedef struct {
 
 Process ready_queue[MAX_PROCESSES];
 int front = 0, rear = 0;
-int completed_processes = 0;  // Track completed processes
+int completed_processes = 0;
 
 // Function prototypes
 void reset_queue();
@@ -156,7 +156,8 @@ void submit_job(const char *command) {
     }
 }
 
-int main(int argc, char *argv[]) {
+// dummy_main replaces main
+int dummy_main(int argc, char *argv[]) {
     if (argc < 3) {
         fprintf(stderr, "Usage: %s <NCPU> <TSLICE in milliseconds>\n", argv[0]);
         exit(EXIT_FAILURE);
@@ -191,3 +192,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+#define main dummy_main
